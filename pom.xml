@@ -6,14 +6,86 @@
   <groupId>org.grails</groupId>
   <artifactId>grails-maven-archetype</artifactId>
   <version>2.0.1.BUILD-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>Maven archetype for Grails projects</name>
   <description>Maven archetype for Grails projects.</description>
   <url>http://github.com/grails/grails-maven-archetype</url>
+  <licenses>
+      <license>
+        <name>The Apache Software License, Version 2.0</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+      </license>    
+  </licenses>
+  <scm>
+    <url>http://github.com/grails/grails-maven-archetype</url>
+    <developerConnection>scm:git:git://github.com/grails/grails-maven-archetype.git</developerConnection>
+    <connection>scm:git:git@github.com:grails/grails-maven-archetype.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>graemerocher</id>
+      <name>Graeme Rocher</name>
+      <email>graeme.rocher@gmail.com</email>
+    </developer>
+  </developers>
 
   <parent>
-      <groupId>org.codehaus</groupId>
-      <artifactId>codehaus-parent</artifactId>
-      <version>4</version>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
   </parent>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+    
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>attach-sources</id>
+                  <goals>
+                    <goal>jar</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>            
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>  
     
 </project>
